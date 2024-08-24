@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: rgb(19, 82, 153);
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .inner-box{
+            background-color: white;
+            height: 400px;
+            width: 400px;
+            border-radius: 10px;
+            border: 2px solid;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin:0;
+            padding:0;
+            box-shadow: rgba(0, 0, 0, 0.8) 0px 22px 70px 4px;
+        }
+        .fields{
+            display: flex;
+            height:200px;
+            width:400px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            margin:0 auto;
+            text-align: center;
+        }
+        label{
+        font: 1em sans-serif;
+        line-height:2;
+        }
+        input{
+            width: 90%;
+            height: 13%;
+        }
+        input:hover{
+            border: 10px soild black;
+        }
+        footer{
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            height: 150px;
+            width: 100%;
+            text-align: center;
+        }
+        footer p{
+            color: white;
+            font-family: sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            padding-top: 10px;
+        }
+        .heading{
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="heading">Welcome!</h1>
+    <div class="container">
+        <div class="inner-box">
+            <h1>Password Strength Checker</h1>
+            <div class="fields">
+            <label for="password" >Password</label>
+            <input type="password" id="password">
+            <div id="strengthDisplay" class="strength"></div>
+        </div>
+        </div>
+    </div>
+    <footer>
+        <p>@Simarjot singh</p>
+        <p>2221108</p>
+        <p>D3 ITB1</p>
+    </footer>
+    <script>
+        document.getElementById('password').addEventListener('input', checkPasswordStrength);
+
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthDisplay = document.getElementById('strengthDisplay');
+            let strength = 'Weak';
+            let strengthColor = 'red';
+
+            const hasUpperCase = /[A-Z]/.test(password);
+            const hasLowerCase = /[a-z]/.test(password);
+            const hasNumbers = /\d/.test(password);
+            const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            const isLongEnough = password.length >= 8;
+
+            if (isLongEnough && hasUpperCase && hasLowerCase && hasNumbers && hasSpecialChars) {
+                strength = 'Strong';
+                strengthColor = 'green';
+            } else if (isLongEnough && ((hasUpperCase && hasLowerCase) || (hasNumbers && hasSpecialChars))) {
+                strength = 'Moderate';
+                strengthColor = 'orange';
+            }
+
+            strengthDisplay.textContent = `Strength: ${strength}`;
+            strengthDisplay.style.color = strengthColor;
+        }
+    </script>
+</body>
+</html>
